@@ -6,7 +6,7 @@
 # Download:
 
 ```
-git clone https://github.com/polaur/huge-experimental.git
+git clone https://github.com/polaur/highest-experimental.git
 
 ```
 
@@ -14,7 +14,7 @@ git clone https://github.com/polaur/huge-experimental.git
 
 
 ```
-cd /some_path/huge-experimental/package_name
+cd /some_path/highest-experimental/package_name
 makepkg -srci
 
 ```
