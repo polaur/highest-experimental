@@ -1,0 +1,19 @@
+# Maintainer: nycko123 <nycko123 at gmail com>
+pkgname=pak
+pkgver=1.0
+pkgrel=1
+pkgdesc="Simple pacman and AUR frontend"
+arch=('any')
+url="https://gitlab.com/nycko123/pak"
+license=('custom')
+depends=('git' 'sudo')
+optdepends=('asp: to download PKBUILDs of official packages'
+			'cower: to manage AUR packages')
+
+source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/nycko123/pak/raw/master/$pkgname-$pkgver.tar.gz")
+
+sha256sums=('997710f190c2853164523c5d99f96ac86be5ce2ec9f089d3a2352443df2cff42')
+
+package(){
+ install -Dm755 "$srcdir/$pkgname" "$pkgdir/usr/bin/$pkgname"
+}
