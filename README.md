@@ -10,6 +10,13 @@ git clone https://github.com/polaur/highest-experimental.git
 
 ```
 
+or
+
+```
+git clone https://gitlab.com/polaur/highest-experimental.git
+
+```
+
 # Install:
 
 
