@@ -1,0 +1,60 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
+
+pkgname=lldb-git
+_pkgname=lldb
+pkgver=10.0.0.r327986.geb4c98ca3d2
+pkgrel=1
+pkgdesc="Next generation, high-performance debugger"
+arch=('x86_64')
+url="https://lldb.llvm.org/"
+license=('custom:Apache 2.0 with LLVM Exception')
+depends=('llvm-libs-git' 'clang-git' 'python' 'python-six')
+makedepends=('llvm-git' 'cmake' 'ninja' 'swig' 'git')
+source=("llvm-project::git+https://github.com/llvm/llvm-project.git")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd "${srcdir}/llvm-project/llvm"
+
+    local _pkgver=$(awk -F 'MAJOR |MINOR |PATCH |)' \
+            'BEGIN { ORS="." ; i=0 } \
+             /set\(LLVM_VERSION_/ { print $2 ; i++ ; if (i==2) ORS="" } \
+             END { print "\n" }' \
+             CMakeLists.txt).r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)
+    echo "${_pkgver}"
+}
+
+prepare() {
+  cd "${srcdir}/llvm-project/lldb"
+  mkdir build
+}
+
+build() {
+  cd "$srcdir/llvm-project/lldb/build"
+
+  cmake .. -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLDB_USE_SYSTEM_SIX=1
+  ninja
+}
+
+package() {
+  cd "$srcdir/llvm-project/lldb/build"
+
+  DESTDIR="$pkgdir" ninja install
+  install -Dm644 ../LICENSE.TXT "$pkgdir/usr/share/licenses/$_pkgname/LICENSE"
+
+  # Install possibly outdated man page; better than nothing!
+  install -Dm644 ../docs/lldb.1 "$pkgdir/usr/share/man/man1/lldb.1"
+
+  # Compile Python scripts
+  python3 -m compileall "$pkgdir"
+  python3 -O -m compileall "$pkgdir"
+  python3 -OO -m compileall "$pkgdir"
+}
+
+# vim:set ts=2 sw=2 et:
