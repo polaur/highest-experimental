@@ -1,0 +1,70 @@
+# Maintainer: Piotr Gorski <lucjan.lucjanov@gmail.com>
+# Contributor: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
+
+pkgname=lld-git
+_pkgname=lld
+pkgver=10.0.0.r328904.ged5d1c12dc4
+pkgrel=1
+pkgdesc="Linker from the LLVM project"
+arch=('x86_64')
+url="https://lld.llvm.org/"
+license=('custom:Apache 2.0 with LLVM Exception')
+depends=('llvm-libs-git')
+makedepends=('llvm-git' 'cmake' 'ninja' 'gtest' 'git')
+source=("llvm-project::git+https://github.com/llvm/llvm-project.git"
+        'sphinx2.patch')
+sha256sums=('SKIP'
+            '7f7cca66a16c5a4aca132bfa1d86a7a2ff33612ec47d3422dc91ad4cc1810646')
+
+pkgver() {
+    cd "${srcdir}/llvm-project/llvm"
+
+    local _pkgver=$(awk -F 'MAJOR |MINOR |PATCH |)' \
+            'BEGIN { ORS="." ; i=0 } \
+             /set\(LLVM_VERSION_/ { print $2 ; i++ ; if (i==2) ORS="" } \
+             END { print "\n" }' \
+             CMakeLists.txt).r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)
+    echo "${_pkgver}"
+}
+
+prepare() {
+  cd "${srcdir}/llvm-project/lld"
+  patch -Np1 -i "${srcdir}/sphinx2.patch"
+  mkdir build
+}
+
+build() {
+  cd "${srcdir}/llvm-project/lld/build"
+
+  cmake .. -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPYTHON_EXECUTABLE=/usr/bin/python \
+    -DBUILD_SHARED_LIBS=ON \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLVM_INCLUDE_TESTS=ON \
+    -DLLVM_BUILD_TESTS=ON \
+    -DLLVM_BUILD_DOCS=ON \
+    -DLLVM_ENABLE_SPHINX=ON \
+    -DLLVM_EXTERNAL_LIT=/usr/bin/lit \
+    -DLLVM_MAIN_SRC_DIR="$srcdir/llvm-project/lld"
+  ninja
+}
+
+#check() {
+#  cd "$srcdir/llvm-project/lld/build"
+#  ninja check-lld
+#}
+
+package() {
+  cd "$srcdir/llvm-project/lld/build"
+
+  DESTDIR="$pkgdir" ninja install
+  install -Dm644 ../LICENSE.TXT "$pkgdir/usr/share/licenses/$_pkgname/LICENSE"
+
+  # Remove documentation sources
+  # rm -r "$pkgdir"/usr/share/doc/$_pkgname/html/{_sources,.buildinfo}
+}
+
+# vim:set ts=2 sw=2 et:
