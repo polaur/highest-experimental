@@ -1,0 +1,22 @@
+pkgbase = compiler-rt-git
+	pkgdesc = Compiler runtime libraries for clang
+	pkgver = 10.0.0.r327879.gc15cd009ac1
+	pkgrel = 1
+	url = https://compiler-rt.llvm.org/
+	arch = x86_64
+	license = custom:Apache 2.0 with LLVM Exception
+	makedepends = llvm-git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = python
+	makedepends = git
+	depends = gcc-libs
+	provides = compiler-rt
+	conflicts = compiler-rt
+	options = staticlibs
+	source = llvm-project::git+https://github.com/llvm/llvm-project.git
+	sha256sums = SKIP
+	makedepends_x86_64 = lib32-gcc-libs
+
+pkgname = compiler-rt-git
+

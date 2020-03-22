@@ -1,0 +1,34 @@
+pkgbase = kmod-git
+	pkgdesc = interface to kernel module operations
+	pkgver = 27.1.g9b003b6
+	pkgrel = 1
+	url = http://git.kernel.org/?p=utils/kernel/kmod/kmod.git;a=summary
+	arch = x86_64
+	license = GPL2
+	checkdepends = linux-headers
+	checkdepends = libelf
+	makedepends = gtk-doc
+	makedepends = git
+	depends = glibc
+	depends = zlib
+	depends = openssl
+	depends = xz
+	provides = module-init-tools=3.16
+	provides = libkmod.so
+	provides = kmod
+	conflicts = module-init-tools
+	conflicts = kmod
+	replaces = module-init-tools
+	options = strip
+	options = debug
+	source = git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
+	source = depmod-search.conf
+	source = depmod.hook
+	source = depmod.script
+	md5sums = SKIP
+	md5sums = dd62cbf62bd8f212f51ef8c43bec9a77
+	md5sums = e179ace75721e92b04b2e145b69dab29
+	md5sums = 18fb3d1f6024a5a84514c8276cb3ebff
+
+pkgname = kmod-git
+

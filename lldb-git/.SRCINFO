@@ -1,0 +1,21 @@
+pkgbase = lldb-git
+	pkgdesc = Next generation, high-performance debugger
+	pkgver = 10.0.0.r327986.geb4c98ca3d2
+	pkgrel = 1
+	url = https://lldb.llvm.org/
+	arch = x86_64
+	license = custom:Apache 2.0 with LLVM Exception
+	makedepends = llvm-git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = swig
+	makedepends = git
+	depends = llvm-libs-git
+	depends = clang-git
+	depends = python
+	depends = python-six
+	source = llvm-project::git+https://github.com/llvm/llvm-project.git
+	sha256sums = SKIP
+
+pkgname = lldb-git
+

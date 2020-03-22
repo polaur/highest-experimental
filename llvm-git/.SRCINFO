@@ -1,0 +1,59 @@
+pkgbase = llvm-git
+	pkgver = 10.0.0.r329318.g30c2441a326
+	pkgrel = 1
+	url = https://llvm.org/
+	arch = x86_64
+	license = custom:Apache 2.0 with LLVM Exception
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = libffi
+	makedepends = libedit
+	makedepends = ncurses
+	makedepends = libxml2
+	makedepends = ocaml=4.09.0
+	makedepends = ocaml-ctypes
+	makedepends = ocaml-findlib
+	makedepends = python-sphinx
+	makedepends = python-recommonmark
+	makedepends = git
+	options = staticlibs
+	source = llvm-project::git+https://github.com/llvm/llvm-project.git
+	source = llvm-config.h
+	validpgpkeys = B6C8F98282B944E3B0D5C2530FC3042E345AD05D
+	validpgpkeys = 474E22316ABF4785A88C6E8EA2C794A986419D8A
+	sha256sums = SKIP
+	sha256sums = 597dc5968c695bbdbb0eac9e8eb5117fcd2773bc91edf5ec103ecffffab8bc48
+
+pkgname = llvm-git
+	pkgdesc = Collection of modular and reusable compiler and toolchain technologies
+	depends = llvm-libs-git
+	depends = perl
+	optdepends = python-setuptools: for using lit (LLVM Integrated Tester)
+	provides = llvm
+	provides = llvm-svn
+	conflicts = llvm
+	conflicts = llvm-svn
+
+pkgname = llvm-libs-git
+	pkgdesc = LLVM runtime libraries
+	depends = gcc-libs
+	depends = zlib
+	depends = libffi
+	depends = libedit
+	depends = ncurses
+	depends = libxml2
+	provides = llvm-libs
+	provides = llvm-libs-svn
+	conflicts = llvm-libs
+	conflicts = llvm-libs-svn
+
+pkgname = llvm-ocaml-git
+	pkgdesc = OCaml bindings for LLVM
+	depends = llvm-git
+	depends = ocaml=4.09.0
+	depends = ocaml-ctypes
+	provides = llvm-ocaml
+	provides = llvm-ocaml-svn
+	conflicts = llvm-ocaml
+	conflicts = llvm-ocaml-svn
+
