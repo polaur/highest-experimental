@@ -1,0 +1,31 @@
+.
+├── clang-git
+│   ├── enable-SSP-and-PIE-by-default.patch
+│   └── PKGBUILD
+├── compiler-rt-git
+│   └── PKGBUILD
+├── Files
+├── kmod-git
+│   ├── depmod.hook
+│   ├── depmod.script
+│   ├── depmod-search.conf
+│   └── PKGBUILD
+├── linux-api-headers-git
+│   └── PKGBUILD
+├── linux-api-headers-rc-git
+│   └── PKGBUILD
+├── lldb-git
+│   └── PKGBUILD
+├── lld-git
+│   ├── PKGBUILD
+│   └── sphinx2.patch
+├── llvm-git
+│   ├── llvm-config.h
+│   └── PKGBUILD
+├── openmp-git
+│   └── PKGBUILD
+├── polly-git
+│   └── PKGBUILD
+└── README.md
+
+10 directories, 18 files
