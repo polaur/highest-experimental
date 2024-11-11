@@ -1,0 +1,43 @@
+From 84b6dc485d75d8158bbf717007de472e2f0e468e Mon Sep 17 00:00:00 2001
+From: cvlc12 <cvlc12@outlook.fr>
+Date: Thu, 3 Oct 2024 15:00:43 +0200
+Subject: [PATCH] update examples with 'microcode'
+
+---
+ mkinitcpio.conf | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/mkinitcpio.conf b/mkinitcpio.conf
+index c07aa9e..d1909a1 100644
+--- a/mkinitcpio.conf
++++ b/mkinitcpio.conf
+@@ -34,21 +34,21 @@ FILES=()
+ #
+ ##   This setup will autodetect all modules for your system and should
+ ##   work as a sane default
+-#    HOOKS=(base udev autodetect modconf block filesystems fsck)
++#    HOOKS=(base udev autodetect microcode modconf block filesystems fsck)
+ #
+ ##   This setup will generate a 'full' image which supports most systems.
+ ##   No autodetection is done.
+-#    HOOKS=(base udev modconf block filesystems fsck)
++#    HOOKS=(base udev microcode modconf block filesystems fsck)
+ #
+ ##   This setup assembles a mdadm array with an encrypted root file system.
+ ##   Note: See 'mkinitcpio -H mdadm_udev' for more information on RAID devices.
+-#    HOOKS=(base udev modconf keyboard keymap consolefont block mdadm_udev encrypt filesystems fsck)
++#    HOOKS=(base udev microcode modconf keyboard keymap consolefont block mdadm_udev encrypt filesystems fsck)
+ #
+ ##   This setup loads an lvm2 volume group.
+-#    HOOKS=(base udev modconf block lvm2 filesystems fsck)
++#    HOOKS=(base udev microcode modconf block lvm2 filesystems fsck)
+ #
+ ##   This will create a systemd based initramfs which loads an encrypted root filesystem.
+-#    HOOKS=(base systemd autodetect modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck)
++#    HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck)
+ #
+ ##   NOTE: If you have /usr on a separate partition, you MUST include the
+ #    usr and fsck hooks.
+-- 
+2.47.0
+
